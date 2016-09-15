@@ -16,7 +16,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_CLANG := true
-LOCAL_CPPFLAGS := -std=c++1y -Weverything -Werror
+LOCAL_CPPFLAGS := -std=c++1y -Werror
 
 # The static constructors and destructors in this library have not been noted to
 # introduce significant overheads
@@ -89,6 +89,11 @@ ifeq ($(TARGET_BOARD_PLATFORM), tegra)
 endif
 ifeq ($(TARGET_BOARD_PLATFORM), tegra3)
 	LOCAL_CFLAGS += -DDONT_USE_FENCE_SYNC
+endif
+
+ifeq ($(TARGET_BOARD_PLATFORM), slsiap)
+	LOCAL_CFLAGS += -DDONT_USE_FENCE_SYNC
+	LOCAL_CFLAGS += -DPATCH_FOR_SLSIAP
 endif
 
 include $(BUILD_SHARED_LIBRARY)

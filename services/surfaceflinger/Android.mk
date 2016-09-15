@@ -92,6 +92,15 @@ endif
 LOCAL_CFLAGS += -fvisibility=hidden -Werror=format
 LOCAL_CFLAGS += -std=c++11
 
+
+ifeq ($(TARGET_BOARD_PLATFORM), slsiap)
+	LOCAL_CFLAGS += -DPATCH_FOR_SLSIAP
+	# for debugging
+	#LOCAL_C_INCLUDES += system/core/include
+	#LOCAL_C_INCLUDES += hardware/samsung_slsi/slsiap/include
+	#LOCAL_C_FLAGS += -DDEBUG_LAYER
+endif
+
 LOCAL_SHARED_LIBRARIES := \
     libcutils \
     liblog \
@@ -108,7 +117,7 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_MODULE := libsurfaceflinger
 
-LOCAL_CFLAGS += -Wall -Werror -Wunused -Wunreachable-code
+LOCAL_CFLAGS += -Wall -Werror
 
 include $(BUILD_SHARED_LIBRARY)
 
@@ -141,7 +150,7 @@ ifdef TARGET_32_BIT_SURFACEFLINGER
 LOCAL_32_BIT_ONLY := true
 endif
 
-LOCAL_CFLAGS += -Wall -Werror -Wunused -Wunreachable-code
+LOCAL_CFLAGS += -Wall -Werror
 
 include $(BUILD_EXECUTABLE)
 
@@ -165,7 +174,7 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_MODULE := libsurfaceflinger_ddmconnection
 
-LOCAL_CFLAGS += -Wall -Werror -Wunused -Wunreachable-code
+LOCAL_CFLAGS += -Wall -Werror
 
 include $(BUILD_SHARED_LIBRARY)
 endif # libnativehelper
